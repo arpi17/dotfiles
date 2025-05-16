@@ -1,10 +1,13 @@
--- Treesitter extensions that will be installed next to the default ones
 return {
   "nvim-treesitter/nvim-treesitter",
-  opts = function(_, opts)
-    vim.list_extend(opts.ensure_installed, {
-      "kdl",
-      "swift",
-    })
-  end,
+  build = ":TSUpdate",
+  main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+  opts = {
+    ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+    -- Autoinstall languages that are not installed
+    auto_install = true,
+    sync_install = false,
+    highlight = { enable = true },
+    indent = { enable = true },
+  }
 }

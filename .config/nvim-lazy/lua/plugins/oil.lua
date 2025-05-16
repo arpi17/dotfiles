@@ -1,0 +1,1 @@
+../../../../dotfiles/.config/nvim-scratch/lua/plugins/oil.lua
