@@ -58,10 +58,10 @@ preset = 'qwerty'
 [gaps]
 inner.horizontal = 0
 inner.vertical = 0
-outer.left = 0
-outer.bottom = 0
-outer.top = 0
-outer.right = 0
+outer.left = 30
+outer.bottom = 30
+outer.top = 30
+outer.right = 30
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -124,15 +124,15 @@ alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
 alt-a = 'workspace A'
-alt-b = 'workspace B' # Browser
-alt-c = 'workspace C' # Chat: Whatsapp, Slack, Teams, etc.
+alt-b = 'workspace B' # Background image -> keep it free
+alt-c = 'workspace C' # Chat: Whatsapp, Signal etc.
 alt-d = 'workspace D'
 alt-e = 'workspace E'
-alt-f = 'workspace F'
+alt-f = 'workspace F' # Firefox
 alt-g = 'workspace G'
 alt-i = 'workspace I'
-alt-n = 'workspace N' # Notes: Obsidian, Apple Notes
-alt-o = 'workspace O'
+alt-n = 'workspace N' # Apple Notes
+alt-o = 'workspace O' # Obsidian
 alt-p = 'workspace P'
 alt-q = 'workspace Q'
 alt-r = 'workspace R'
@@ -140,7 +140,7 @@ alt-s = 'workspace S' # Spotify
 alt-t = 'workspace T' # Terminal
 alt-u = 'workspace U'
 alt-v = 'workspace V'
-alt-w = 'workspace W'
+alt-w = 'workspace W' # Work: Slack
 alt-x = 'workspace X' # Xcode
 alt-y = 'workspace Y'
 alt-z = 'workspace Z'
@@ -213,11 +213,9 @@ shift-down = ['volume set 0', 'mode main']
 if.app-id = 'com.github.wez.wezterm'
 run = 'move-node-to-workspace T'
 
-
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
-run = 'move-node-to-workspace B'
-
+run = 'move-node-to-workspace F'
 
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
@@ -225,8 +223,12 @@ run = 'move-node-to-workspace S'
 
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
-run = 'move-node-to-workspace N'
+run = 'move-node-to-workspace O'
 
 [[on-window-detected]]
 if.app-id = 'net.whatsapp.WhatsApp'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'org.whispersystems.signal-desktop'
 run = 'move-node-to-workspace C'
