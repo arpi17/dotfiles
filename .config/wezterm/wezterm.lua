@@ -17,6 +17,12 @@ config.hide_tab_bar_if_only_one_tab = false
 config.tab_bar_at_bottom = false
 config.use_fancy_tab_bar = false
 
+-- Window padding
+config.window_padding = {
+	top = 20, -- This is currently working for keeping the bottom padding minimal due to window resizing
+	bottom = 0,
+}
+
 -- Remove top window bar
 config.window_decorations = "RESIZE"
 
