@@ -14,9 +14,12 @@ compinit
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
 # Prompts to select the nvim config
 nv() {
-  select config in nvim nvim-scratch
+  select config in nvim nvim-lazy nvim-kickstart nvim-ios
   do
     NVIM_APPNAME=$config nvim $@;
     break;
