@@ -11,6 +11,7 @@ config.window_background_opacity = 0.80
 
 -- Font
 config.font = wezterm.font("Monaspace Argon")
+config.font_size = 14.0
 
 -- Tab bar
 config.hide_tab_bar_if_only_one_tab = false
