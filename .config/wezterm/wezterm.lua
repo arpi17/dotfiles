@@ -121,6 +121,17 @@ config.keys = {
 			end),
 		}),
 	},
+	-- Scroll by page
+	{
+		mods = "CTRL",
+		key = "[",
+		action = act.ScrollByPage(-1),
+	},
+	{
+		mods = "CTRL",
+		key = "]",
+		action = act.ScrollByPage(1),
+	},
 }
 
 -- Move to numbered tab
@@ -152,5 +163,7 @@ wezterm.on("update-right-status", function(window, pane)
 	local name = window:active_key_table()
 	window:set_right_status(name or "")
 end)
+
+-- Plugins --
 
 return config
