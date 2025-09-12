@@ -4,8 +4,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Aliases
 alias c=clear
 alias lg=lazygit
-alias gl="git log"
-alias glo="git log --oneline"
 
 autoload -Uz compinit
 compinit
