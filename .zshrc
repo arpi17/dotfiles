@@ -9,6 +9,9 @@ alias lg=lazygit
 autoload -Uz compinit
 compinit
 
+# Enable Vim mode
+set -o vi
+
 # ZSH plugins
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -24,6 +27,9 @@ nv() {
     break;
   done
 }
+
+# Zoxide setup
+eval "$(zoxide init zsh)"
 
 # Oh My Posh config
 eval "$(oh-my-posh init zsh --config ~/.config/omp/theme.json)"
