@@ -131,7 +131,7 @@ config.keys = {
 		mods = "LEADER",
 		key = "r",
 		action = act.ActivateKeyTable({
-			name = "resize_pane",
+			name = "resize",
 			one_shot = false,
 		}),
 	},
@@ -171,7 +171,7 @@ for i = 1, 8 do
 end
 
 config.key_tables = {
-	resize_pane = {
+	resize = {
 		{ key = "LeftArrow", action = act.AdjustPaneSize({ "Left", 1 }) },
 		{ key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
 		{ key = "RightArrow", action = act.AdjustPaneSize({ "Right", 1 }) },
@@ -212,6 +212,7 @@ function tab_title(tab_info)
 	-- in that tab
 	return tab_info.active_pane.title
 end
+
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local title = tab_title(tab)
 	local tab_number = tostring(tab.tab_index + 1)
