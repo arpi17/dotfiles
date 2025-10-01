@@ -44,6 +44,7 @@ config.colors = {
 		background = bg,
 	},
 }
+
 -- Window padding
 config.window_padding = {
 	top = 20, -- This is currently working for keeping the bottom padding minimal due to window resizing
@@ -148,6 +149,11 @@ config.keys = {
 			end),
 		}),
 	},
+	{
+		mods = "LEADER",
+		key = "o",
+		action = wezterm.action.EmitEvent("toggle-opacity"),
+	},
 	-- Scroll by page
 	{
 		mods = "CTRL",
@@ -246,6 +252,17 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 			{ Text = " " },
 		}
 	end
+end)
+
+-- Toggles opacity between 1 and the configured value
+wezterm.on("toggle-opacity", function(window, pane)
+	local overrides = window:get_config_overrides() or {}
+	if not overrides.window_background_opacity then
+		overrides.window_background_opacity = 1
+	else
+		overrides.window_background_opacity = nil
+	end
+	window:set_config_overrides(overrides)
 end)
 -- Plugins --
 
