@@ -165,6 +165,37 @@ config.keys = {
 		key = "]",
 		action = act.ScrollByPage(1),
 	},
+	-- Show Launcher
+	{
+		mods = "LEADER",
+		key = "l",
+		action = wezterm.action.ShowLauncher,
+	},
+	-- Workspaces
+	{
+		mods = "LEADER",
+		key = "w",
+		action = wezterm.action.PromptInputLine({
+			description = wezterm.format({
+				{ Attribute = { Intensity = "Bold" } },
+				{ Foreground = { AnsiColor = "Fuchsia" } },
+				{ Text = "Enter name for new workspace" },
+			}),
+			action = wezterm.action_callback(function(window, pane, line)
+				-- line will be `nil` if they hit escape without entering anything
+				-- An empty string if they just hit enter
+				-- Or the actual line of text they wrote
+				if line then
+					window:perform_action(
+						act.SwitchToWorkspace({
+							name = line,
+						}),
+						pane
+					)
+				end
+			end),
+		}),
+	},
 }
 
 -- Move to numbered tab
@@ -264,6 +295,21 @@ wezterm.on("toggle-opacity", function(window, pane)
 	end
 	window:set_config_overrides(overrides)
 end)
+
 -- Plugins --
+local workspace_switcher = wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
+workspace_switcher.apply_to_config(config)
+-- table.insert(config.keys, {
+-- 	{
+-- 		key = "s",
+-- 		mods = "LEADER",
+-- 		action = workspace_switcher.switch_workspace(),
+-- 	},
+-- 	{
+-- 		key = "S",
+-- 		mods = "LEADER",
+-- 		action = workspace_switcher.switch_to_prev_workspace(),
+-- 	},
+-- })
 
 return config
