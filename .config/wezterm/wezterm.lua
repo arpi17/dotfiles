@@ -159,8 +159,19 @@ config.key_tables = {
 
 -- Show which key table is active in the status area
 wezterm.on("update-status", function(window, pane)
-	local name = window:active_key_table()
-	window:set_right_status(name or "")
+	local mode = string.upper(string.sub(window:active_key_table(), 1, 1))
+	local date = wezterm.strftime("%-d ")
+	local time = wezterm.strftime("%H:%M ")
+
+	window:set_right_status(wezterm.format({
+		-- { Background = { AnsiColor = "Olive" } },
+		-- { Foreground = { AnsiColor = "Black" } },
+		-- { Text = mode or "N" .. " " },
+		{ Background = { AnsiColor = "Fuchsia" } },
+		{ Foreground = { AnsiColor = "Black" } },
+		{ Text = " " .. wezterm.nerdfonts.fa_calendar_o .. " " .. date .. wezterm.nerdfonts.fa_clock_o .. " " .. time },
+	}))
+
 	window:set_left_status(wezterm.format({
 		{ Background = { AnsiColor = "Fuchsia" } },
 		{ Foreground = { AnsiColor = "Black" } },
