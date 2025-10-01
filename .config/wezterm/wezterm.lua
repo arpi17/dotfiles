@@ -64,78 +64,27 @@ config.scrollback_lines = 1000
 config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 2000 }
 config.keys = {
 	-- New tab
-	{
-		mods = "LEADER",
-		key = "c",
-		action = act.SpawnTab("CurrentPaneDomain"),
-	},
+	{ mods = "LEADER", key = "c", action = act.SpawnTab("CurrentPaneDomain") },
 	-- Close tab/pane
-	{
-		mods = "LEADER",
-		key = "x",
-		action = act.CloseCurrentPane({ confirm = true }),
-	},
+	{ mods = "LEADER", key = "x", action = act.CloseCurrentPane({ confirm = true }) },
 	-- Previous tab
-	{
-		mods = "LEADER",
-		key = "b",
-		action = act.ActivateTabRelative(-1),
-	},
+	{ mods = "LEADER", key = "b", action = act.ActivateTabRelative(-1) },
 	-- Next tab
-	{
-		mods = "LEADER",
-		key = "n",
-		action = act.ActivateTabRelative(1),
-	},
+	{ mods = "LEADER", key = "n", action = act.ActivateTabRelative(1) },
 	-- Split horizontal
-	{
-		mods = "LEADER",
-		key = "|",
-		action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
-	},
+	{ mods = "LEADER", key = "|", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	-- Split vertical
-	{
-		mods = "LEADER",
-		key = "-",
-		action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
-	},
+	{ mods = "LEADER", key = "-", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 	-- Pane navigation
-	{
-		mods = "CTRL",
-		key = "h",
-		action = act.ActivatePaneDirection("Left"),
-	},
-	{
-		mods = "CTRL",
-		key = "j",
-		action = act.ActivatePaneDirection("Down"),
-	},
-	{
-		mods = "CTRL",
-		key = "k",
-		action = act.ActivatePaneDirection("Up"),
-	},
-	{
-		mods = "CTRL",
-		key = "l",
-		action = act.ActivatePaneDirection("Right"),
-	},
+	{ mods = "CTRL", key = "h", action = act.ActivatePaneDirection("Left") },
+	{ mods = "CTRL", key = "j", action = act.ActivatePaneDirection("Down") },
+	{ mods = "CTRL", key = "k", action = act.ActivatePaneDirection("Up") },
+	{ mods = "CTRL", key = "l", action = act.ActivatePaneDirection("Right") },
 	-- Zoom pane
-	{
-		mods = "LEADER",
-		key = "z",
-		action = act.TogglePaneZoomState,
-	},
+	{ mods = "LEADER", key = "z", action = act.TogglePaneZoomState },
 	-- Key table activations
 	-- Resize mode
-	{
-		mods = "LEADER",
-		key = "r",
-		action = act.ActivateKeyTable({
-			name = "resize",
-			one_shot = false,
-		}),
-	},
+	{ mods = "LEADER", key = "r", action = act.ActivateKeyTable({ name = "resize", one_shot = false }) },
 	-- Prompt for renaming tab
 	{
 		mods = "LEADER",
@@ -149,28 +98,12 @@ config.keys = {
 			end),
 		}),
 	},
-	{
-		mods = "LEADER",
-		key = "o",
-		action = wezterm.action.EmitEvent("toggle-opacity"),
-	},
+	{ mods = "LEADER", key = "o", action = wezterm.action.EmitEvent("toggle-opacity") },
 	-- Scroll by page
-	{
-		mods = "CTRL",
-		key = "[",
-		action = act.ScrollByPage(-1),
-	},
-	{
-		mods = "CTRL",
-		key = "]",
-		action = act.ScrollByPage(1),
-	},
+	{ mods = "CTRL", key = "[", action = act.ScrollByPage(-1) },
+	{ mods = "CTRL", key = "]", action = act.ScrollByPage(1) },
 	-- Show Launcher
-	{
-		mods = "LEADER",
-		key = "l",
-		action = wezterm.action.ShowLauncher,
-	},
+	{ mods = "LEADER", key = "l", action = wezterm.action.ShowLauncher },
 	-- Workspaces
 	{
 		mods = "LEADER",
