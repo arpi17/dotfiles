@@ -3,21 +3,47 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local config = wezterm.config_builder()
 
--- Color scheme
-config.color_scheme = "tokyonight_moon"
-
 -- Background opacity
-config.window_background_opacity = 0.80
+local bg_opacity = 0.80
+config.window_background_opacity = bg_opacity
 
 -- Font
 config.font = wezterm.font("Monaspace Argon")
 config.font_size = 14.0
 
+-- Color scheme
+local color_scheme = "tokyonight_moon"
+local colors = wezterm.get_builtin_color_schemes()[color_scheme]
+
+---Adjusts the alpha channel of a color
+---@param color string
+---@param new_opacity number
+local function adjust_opacity(color, new_opacity)
+	if new_opacity < 0 or new_opacity > 1 then
+		print("new opacity must be between 0 and 1")
+		return
+	end
+
+	local h, s, l, _ = wezterm.color.parse(color):hsla()
+	return wezterm.color.from_hsla(h, s, l, new_opacity)
+end
+
+-- The opacity adjusted background color of the theme
+local bg = adjust_opacity(colors.background, bg_opacity)
+
+config.color_scheme = color_scheme
+
 -- Tab bar
 config.hide_tab_bar_if_only_one_tab = false
 config.tab_bar_at_bottom = false
 config.use_fancy_tab_bar = false
+config.show_new_tab_button_in_tab_bar = false
 
+config.colors = {
+	tab_bar = {
+		background = bg,
+	},
+}
 -- Window padding
 config.window_padding = {
 	top = 20, -- This is currently working for keeping the bottom padding minimal due to window resizing
@@ -159,12 +185,67 @@ config.key_tables = {
 	},
 }
 
+-- Update functions
+
 -- Show which key table is active in the status area
-wezterm.on("update-right-status", function(window, pane)
+wezterm.on("update-status", function(window, pane)
 	local name = window:active_key_table()
 	window:set_right_status(name or "")
+	window:set_left_status(wezterm.format({
+		{ Background = { AnsiColor = "Fuchsia" } },
+		{ Foreground = { AnsiColor = "Black" } },
+		{ Text = " " .. wezterm.nerdfonts.dev_terminal .. " " .. window:active_workspace() .. " " },
+	}) .. " ")
 end)
 
+-- This function returns the suggested title for a tab.
+-- It prefers the title that was set via `tab:set_title()`
+-- or `wezterm cli set-tab-title`, but falls back to the
+-- title of the active pane in that tab.
+function tab_title(tab_info)
+	local title = tab_info.tab_title
+	-- if the tab title is explicitly set, take that
+	if title and #title > 0 then
+		return title
+	end
+	-- Otherwise, use the title from the active pane
+	-- in that tab
+	return tab_info.active_pane.title
+end
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+	local title = tab_title(tab)
+	local tab_number = tostring(tab.tab_index + 1)
+
+	if tab.is_active then
+		return {
+			{ Background = { Color = bg } },
+			{ Foreground = { AnsiColor = "Lime" } },
+			{ Text = wezterm.nerdfonts.ple_left_half_circle_thick },
+			{ Background = { AnsiColor = "Lime" } },
+			{ Foreground = { AnsiColor = "Black" } },
+			{ Text = tab_number .. ": " .. title },
+			{ Background = { Color = bg } },
+			{ Foreground = { AnsiColor = "Lime" } },
+			{ Text = wezterm.nerdfonts.ple_right_half_circle_thick },
+			{ Background = { Color = bg } },
+			{ Text = " " },
+		}
+	else
+		return {
+			{ Background = { Color = bg } },
+			{ Foreground = { AnsiColor = "Grey" } },
+			{ Text = wezterm.nerdfonts.ple_left_half_circle_thick },
+			{ Background = { AnsiColor = "Grey" } },
+			{ Foreground = { AnsiColor = "Olive" } },
+			{ Text = tab_number .. ": " .. title },
+			{ Background = { Color = bg } },
+			{ Foreground = { AnsiColor = "Grey" } },
+			{ Text = wezterm.nerdfonts.ple_right_half_circle_thick },
+			{ Background = { Color = bg } },
+			{ Text = " " },
+		}
+	end
+end)
 -- Plugins --
 
 return config
