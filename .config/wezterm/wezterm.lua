@@ -176,6 +176,12 @@ wezterm.on("update-status", function(window, pane)
 		{ Background = { AnsiColor = "Fuchsia" } },
 		{ Foreground = { AnsiColor = "Black" } },
 		{ Text = " " .. wezterm.nerdfonts.dev_terminal .. " " .. window:active_workspace() .. " " },
+		{ Background = { Color = bg } },
+		{ Text = " " },
+		{ Attribute = { Intensity = "Bold" } }, -- FIXME: This font attribute is not working yet
+		{ Background = { AnsiColor = "Blue" } },
+		{ Foreground = { AnsiColor = "Black" } },
+		{ Text = " " .. mode .. " " },
 	}) .. " ")
 end)
 
