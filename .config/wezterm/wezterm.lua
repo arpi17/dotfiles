@@ -159,7 +159,7 @@ config.key_tables = {
 
 -- Show which key table is active in the status area
 wezterm.on("update-status", function(window, pane)
-	local mode = string.upper(string.sub(window:active_key_table(), 1, 1))
+	local mode = string.upper(string.sub(window:active_key_table() or "Normal", 1, 1))
 	local date = wezterm.strftime("%-d ")
 	local time = wezterm.strftime("%H:%M ")
 
